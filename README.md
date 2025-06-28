@@ -76,8 +76,9 @@ An immersive, interactive 3D solar system visualization built with Three.js feat
 ## 🚀 Getting Started
 
 1. **Clone or download** the project files
-2. **Open `index.html`** in a modern web browser
-3. **Enjoy the enhanced solar system!**
+2.**On the terminal write `npx serve .`
+3. **Open `index.html`** in a modern web browser
+4. **Enjoy the enhanced solar system!**
 
 ### Controls
 - **Mouse**: Click planets for information, drag to rotate (manual mode)
