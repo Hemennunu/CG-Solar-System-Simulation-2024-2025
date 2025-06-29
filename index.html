@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solar System - Enhanced</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background: #000;
+        overflow: hidden;
+        color: white;
+      }
+      
+      #ui {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        max-width: 220px;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      
+      #info-panel {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        max-width: 300px;
+        display: none;
+      }
+      
+      .control-group {
+        margin-bottom: 8px;
+      }
+      
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #00ffff;
+      }
+      
+      button {
+        background: linear-gradient(45deg, #00ffff, #0080ff);
+        border: none;
+        color: white;
+        padding: 6px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 3px;
+        transition: all 0.3s ease;
+        font-size: 14px;
+      }
+      
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+      }
+      
+      button.active {
+        background: linear-gradient(45deg, #ff0080, #ff00ff);
+      }
+      
+      .planet-info {
+        margin-bottom: 10px;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        border-left: 3px solid #00ffff;
+      }
+      
+      .planet-name {
+        font-weight: bold;
+        color: #00ffff;
+        margin-bottom: 5px;
+      }
+      
+      #loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        text-align: center;
+        color: #00ffff;
+        font-size: 24px;
+      }
+      
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(0, 255, 255, 0.3);
+        border-top: 3px solid #00ffff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      @media (max-width: 600px) {
+        #ui {
+          max-width: 95vw;
+          font-size: 12px;
+          padding: 5px;
+        }
+        button {
+          font-size: 12px;
+          padding: 4px 6px;
+        }
+      }
+    </style>
+    <script type="importmap">
+      {
+				"imports": {
+					"three": "https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js",
+          "jsm/": "https://cdn.jsdelivr.net/npm/three@0.161/examples/jsm/"
+        }
+			}
+    </script>
+  </head>
+  <body>
+    <div id="loading">
+      <div class="loading-spinner"></div>
+      <div>Loading Solar System...</div>
+    </div>
+    
+    <div id="ui">
+      <h3 style="margin-top: 0; color: #00ffff;">Solar System Controls</h3>
+      
+      <div class="control-group">
+        <label>Camera Mode:</label>
+        <button id="auto-camera" class="active">Auto Orbit</button>
+        <button id="manual-camera">Manual Control</button>
+        <button id="planet-follow">Follow Planet</button>
+      </div>
+      
+      <div class="control-group">
+        <label>Visual Effects:</label>
+        <button id="toggle-bloom">Bloom: ON</button>
+        <button id="toggle-atmosphere">Atmosphere: ON</button>
+        <button id="toggle-particles">Particles: ON</button>
+      </div>
+      
+      <div class="control-group">
+        <label>Speed:</label>
+        <input type="range" id="speed-control" min="0.1" max="3" step="0.1" value="1" style="width: 100%;">
+        <span id="speed-value">1.0x</span>
+      </div>
+      
+      <div class="control-group">
+        <label>Audio:</label>
+        <button id="toggle-audio">Audio: OFF</button>
+      </div>
+    </div>
+    
+    <div id="info-panel">
+      <h3 style="margin-top: 0; color: #00ffff;">Planet Information</h3>
+      <div id="planet-details"></div>
+    </div>
+    
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
